@@ -1,0 +1,112 @@
+﻿<Window x:Class="TenderParserWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TenderParserWpf"
+        mc:Ignorable="d"
+       Title="Мониторинг внешнего рынка по заданным сайтам и ключевым словам" Height="680" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="75,25,98,81">
+            <GroupBox.Header>
+                <TextBlock FontSize="18" Margin="-9,0,9,0">Выберите направления поиска:</TextBlock>
+            </GroupBox.Header>
+            <StackPanel Orientation="Horizontal" Margin="0,0,-2,0" Height="102">
+                <CheckBox x:Name="checkBox1" IsChecked="False"  Height="29" Width="84"  >
+                    <TextBlock FontSize="18" FontWeight="Bold">ПИР</TextBlock>
+                </CheckBox>
+                <CheckBox x:Name="checkBox2" IsChecked="False"  Height="29" >
+                    <TextBlock FontSize="18" FontWeight="Bold" Width="93">СИПОЭ</TextBlock>
+                </CheckBox>
+                <CheckBox x:Name="checkBox3" IsChecked="False"  Height="29" >
+                    <TextBlock FontSize="18" FontWeight="Bold" Width="138">СИ по ТИТЭЭ</TextBlock>
+                </CheckBox>
+                <CheckBox x:Name="checkBox4" IsChecked="False"  Height="29" >
+                    <TextBlock FontSize="18" FontWeight="Bold" Width="98">И и ИД</TextBlock>
+                </CheckBox>
+                <CheckBox x:Name="checkBox5" IsChecked="False"  Height="29" >
+                    <TextBlock FontSize="18" FontWeight="Bold">ГИР и ГРР</TextBlock>
+                </CheckBox>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox  Grid.ColumnSpan="3" Margin="75,175,98,168" Grid.RowSpan="2">
+            <GroupBox.Header>
+                <TextBlock FontSize="18">Укажите ключевые слова:</TextBlock>
+            </GroupBox.Header>
+            <ComboBox  x:Name="wordList"  FontSize="17" FontWeight="Bold"  Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" IsEditable="True" IsTextSearchEnabled = "True"  Height="28" Margin="10,0,0,0"/>
+        </GroupBox>
+        <GroupBox Header="Укажите папку для сохранения отчёта:" Grid.Column="0" Grid.ColumnSpan="3" FontSize="18" Margin="75,72,98,48" Grid.Row="1"/>
+        <TextBox x:Name="textBoxSelectFile" Grid.Column="0"  Grid.Row="1"  Grid.ColumnSpan="3" Width="493" TextAlignment="Center"  HorizontalAlignment="Left"  ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="93,104,0,72" >
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.03"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+
+        <Button x:Name="buttonSelectFile" FontWeight="Bold"  Grid.Column="2" Margin="71,100,124,69" Grid.Row="1" Click="buttonSelectFile_Click"  >
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+            <Image Source="pack://application:,,,/Resources/selectFolder.png" Width="60"/>
+        </Button>
+
+        <Expander Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="75,194,98,56" Grid.RowSpan="2">
+            <Expander.Header>
+                <TextBlock FontSize="18">Выберите площадки для поиска:</TextBlock>
+            </Expander.Header>
+            <StackPanel Width="202" Margin="0,10,0,7">
+                <CheckBox x:Name="checkBoxSite1" IsChecked="False">
+                    <TextBlock FontSize="12" FontWeight="Bold" Width="93">etpgpb.ru</TextBlock>
+                </CheckBox>
+                <CheckBox x:Name="checkBoxSite2" IsChecked="False">
+                    <TextBlock FontSize="12" FontWeight="Bold" Width="93">b2b-center.ru</TextBlock>
+                </CheckBox>
+                <CheckBox x:Name="checkBoxSite3" IsChecked="False">
+                    <TextBlock FontSize="12" FontWeight="Bold" Width="176">zakupki.gazprom-neft.ru</TextBlock>
+                </CheckBox>
+                <CheckBox x:Name="checkBoxSite4" IsChecked="False">
+                    <TextBlock FontSize="12" FontWeight="Bold" Width="116">lukoil.ru</TextBlock>
+                </CheckBox>
+                <CheckBox x:Name="checkBoxSite5" IsChecked="False">
+                    <TextBlock FontSize="12" FontWeight="Bold" Width="116">neftisa.ru</TextBlock>
+                </CheckBox>
+                <CheckBox x:Name="checkBoxSite6" IsChecked="False">
+                    <TextBlock FontSize="12" FontWeight="Bold" Width="116">fabrikant.ru</TextBlock>
+                </CheckBox>
+                <CheckBox x:Name="checkBoxSite7" IsChecked="False">
+                    <TextBlock FontSize="12" FontWeight="Bold" Width="116">etp.spbex.ru</TextBlock>
+                </CheckBox>
+                <CheckBox x:Name="checkBoxSite8" IsChecked="False">
+                    <TextBlock FontSize="12" FontWeight="Bold" Width="116">novatek.ru</TextBlock>
+                </CheckBox>
+            </StackPanel>
+        </Expander>
+
+        <ProgressBar x:Name="progressBar" Minimum="0" Maximum="100"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Margin="75,154,159,34"/>
+
+        <Button x:Name="buttonStart" FontWeight="Bold"   Grid.Column="2" Grid.Row="2" Margin="144,121,53,34" Click="buttonStart_Click"  >
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="30"/>
+                </Style>
+            </Button.Resources>
+            <Image Source="pack://application:,,,/Resources/start.png" Height="53" Width="66" RenderTransformOrigin="0.523,0.5" />
+        </Button>
+    </Grid>
+</Window>

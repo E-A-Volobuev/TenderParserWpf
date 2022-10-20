@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32901.82
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenderParserWpf", "TenderParserWpf\TenderParserWpf.csproj", "{AD2055EB-20A6-4925-8640-C0DB1C511B42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenderParserWpf.Models", "TenderParserWpf.Models\TenderParserWpf.Models.csproj", "{90F6AD3D-CC1D-4A13-9769-39945A6F23D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenderParserWpf.BLL", "TenderParserWpf.BLL\TenderParserWpf.BLL.csproj", "{AE92B87E-57E9-42ED-8942-CAC75E6006EA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD2055EB-20A6-4925-8640-C0DB1C511B42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD2055EB-20A6-4925-8640-C0DB1C511B42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD2055EB-20A6-4925-8640-C0DB1C511B42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD2055EB-20A6-4925-8640-C0DB1C511B42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90F6AD3D-CC1D-4A13-9769-39945A6F23D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90F6AD3D-CC1D-4A13-9769-39945A6F23D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90F6AD3D-CC1D-4A13-9769-39945A6F23D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90F6AD3D-CC1D-4A13-9769-39945A6F23D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE92B87E-57E9-42ED-8942-CAC75E6006EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE92B87E-57E9-42ED-8942-CAC75E6006EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE92B87E-57E9-42ED-8942-CAC75E6006EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE92B87E-57E9-42ED-8942-CAC75E6006EA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {374A4B1D-1516-4330-BF54-D83C3B700D5A}
+	EndGlobalSection
+EndGlobal
