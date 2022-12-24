@@ -63,6 +63,16 @@ namespace TenderParserWpf.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
+        internal static byte[] tempalte {
+            get {
+                object obj = ResourceManager.GetObject("tempalte", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
         internal static byte[] отчет {
             get {
                 object obj = ResourceManager.GetObject("отчет", resourceCulture);

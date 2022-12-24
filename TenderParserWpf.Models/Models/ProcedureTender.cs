@@ -12,7 +12,7 @@ namespace TenderParserWpf.Models.Models
         /// <summary>
         /// дата публикации
         /// </summary>
-        public DateTime DatePubliсation { get; set; }
+        public DateTime? DatePubliсation { get; set; }
 
         /// <summary>
         /// url процедуры
@@ -22,7 +22,7 @@ namespace TenderParserWpf.Models.Models
         /// <summary>
         /// Сроки подачи заявки
         /// </summary>
-        public DateTime DateEnd { get; set; }
+        public DateTime? DateEnd { get; set; }
 
         /// <summary>
         /// Предмет

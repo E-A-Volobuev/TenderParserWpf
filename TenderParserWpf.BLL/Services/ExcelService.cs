@@ -3,9 +3,6 @@ using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TenderParserWpf.BLL.Interfaces;
 using TenderParserWpf.Models.Dto;
 using TenderParserWpf.Models.Models;
@@ -61,7 +58,7 @@ namespace TenderParserWpf.BLL.Services
                     type = TypeRequest.I_I_ID;
                     ExcelHelper(type, list);
                 }
-                if (select.Contains("ГИР ГРР"))
+                if (select.Contains("ГИР и ГРР"))
                 {
                     type = TypeRequest.GIR_GRR;
                     ExcelHelper(type, list);
@@ -93,8 +90,12 @@ namespace TenderParserWpf.BLL.Services
 
             var styleDate = GetStyleForCell(TypeDateCell.DATE_PUBLIC);
             ICell cellDataPublic = dataRow.GetCell(1) ?? dataRow.CreateCell(1);
-            cellDataPublic.SetCellValue(list[i - 1].DatePubliсation);
-            cellDataPublic.CellStyle = styleDate;
+            if(list[i - 1].DatePubliсation != null)
+            {
+                cellDataPublic.SetCellValue(Convert.ToDateTime(list[i - 1].DatePubliсation));
+                cellDataPublic.CellStyle = styleDate;
+            }
+
 
             ICell cellNumberProcedure = dataRow.GetCell(2) ?? dataRow.CreateCell(2);
             cellNumberProcedure.SetCellValue(list[i - 1].NumberProcedure);
@@ -104,7 +105,7 @@ namespace TenderParserWpf.BLL.Services
 
             var styleDateEnd = GetStyleForCell(TypeDateCell.DATE_END);
             ICell cellDateEnd = dataRow.GetCell(4) ?? dataRow.CreateCell(4);
-            cellDateEnd.SetCellValue(list[i - 1].DateEnd);
+            cellDateEnd.SetCellValue(Convert.ToDateTime(list[i - 1].DateEnd));
             cellDateEnd.CellStyle = styleDateEnd;
 
             ICell cellProcedureName = dataRow.GetCell(5) ?? dataRow.CreateCell(5);

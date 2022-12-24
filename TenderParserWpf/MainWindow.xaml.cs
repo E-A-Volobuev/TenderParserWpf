@@ -13,6 +13,10 @@ using LightInject;
 using TenderParserWpf.BLL.Interfaces;
 using TenderParserWpf.BLL.Services;
 using System.Net;
+using TenderParserWpf.BLL.Repositories;
+using System.Linq;
+using System.Data.SQLite;
+using System.Data;
 
 namespace TenderParserWpf
 {
@@ -23,6 +27,14 @@ namespace TenderParserWpf
     {
         private readonly IExcelService _iExcelService;
         private readonly IProcessService _iProcessService;
+        private readonly IWordByPirRepository _iWordRepositoryByPir;
+        private readonly IWordBySipoeRepository _iWordRepositoryBySipoe;
+        private readonly IWordBySiPoTiteeRepository _iWordRepositoryBySiPoTitee;
+        private readonly IWordByIiIdRepository _iWordRepositoryByIiId;
+        private readonly IWordByGirIGrrRepository _iWordRepositoryByGirIGrr;
+
+        private SQLiteConnection m_dbConn;
+        private SQLiteCommand m_sqlCmd;
         public MainWindow()
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -31,25 +43,36 @@ namespace TenderParserWpf
             var container = new ServiceContainer();
             container.Register<IExcelService, ExcelService>();
             container.Register<IProcessService, ProcessService>();
+            container.Register<IWordByPirRepository, WordByPirRepository>();
+            container.Register<IWordBySipoeRepository, WordBySipoeRepository>();
+            container.Register<IWordBySiPoTiteeRepository, WordBySiPoTiteeRepository>();
+            container.Register<IWordByIiIdRepository, WordByIiIdRepository>();
+            container.Register<IWordByGirIGrrRepository, WordByGirIGrrRepository>();
 
             _iExcelService = container.GetInstance<IExcelService>();
             _iProcessService = container.GetInstance<IProcessService>();
+            _iWordRepositoryByPir = container.GetInstance<IWordByPirRepository>();
+            _iWordRepositoryBySipoe = container.GetInstance<IWordBySipoeRepository>();
+            _iWordRepositoryBySiPoTitee = container.GetInstance<IWordBySiPoTiteeRepository>();
+            _iWordRepositoryByIiId = container.GetInstance<IWordByIiIdRepository>();
+            _iWordRepositoryByGirIGrr = container.GetInstance<IWordByGirIGrrRepository>();
 
-            WordList.Add("ПИР");
-            WordList.Add("ГИР");
-            WordList.Add("МИР");
 
-            wordList.ItemsSource = WordList;
+            m_dbConn = new SQLiteConnection();
+            m_sqlCmd = new SQLiteCommand();
+
+
+            //wordList.ItemsSource = WordList;
         }
 
         private ObservableCollection<string> WordList { get; set; } = new ObservableCollection<string>();
 
-        private async void buttonStart_Click(object sender, RoutedEventArgs e)
+        private  async void buttonStart_Click(object sender, RoutedEventArgs e)
         {
             DtoCheckBoxes checkDto = new DtoCheckBoxes(checkBox1.IsChecked, checkBox2.IsChecked, checkBox3.IsChecked, checkBox4.IsChecked,
                                                        checkBox5.IsChecked, checkBoxSite1.IsChecked, checkBoxSite2.IsChecked, checkBoxSite3.IsChecked,
-                                                       checkBoxSite4.IsChecked, checkBoxSite5.IsChecked, checkBoxSite6.IsChecked,
-                                                       checkBoxSite7.IsChecked, checkBoxSite8.IsChecked, wordList.Text, textBoxSelectFile.Text);
+                                                       checkBoxSite5.IsChecked, checkBoxSite6.IsChecked,
+                                                        wordList.Text, textBoxSelectFile.Text);
 
             string pathCatalog = textBoxSelectFile.Text;
             string searchWord = wordList.Text;
@@ -128,16 +151,10 @@ namespace TenderParserWpf
                 searchSites.Add("b2b-center.ru");
             if (checkDto.CheckBoxSite3 == true)
                 searchSites.Add("zakupki.gazprom-neft.ru");
-            if (checkDto.CheckBoxSite4 == true)
-                searchSites.Add("lukoil.ru");
             if (checkDto.CheckBoxSite5 == true)
                 searchSites.Add("neftisa.ru");
             if (checkDto.CheckBoxSite6 == true)
                 searchSites.Add("fabrikant.ru");
-            if (checkDto.CheckBoxSite7 == true)
-                searchSites.Add("etp.spbex.ru");
-            if (checkDto.CheckBoxSite8 == true)
-                searchSites.Add("novatek.ru");
 
             return searchSites.ToArray();
         }
@@ -197,8 +214,7 @@ namespace TenderParserWpf
             bool flag = true;
 
             if ((checkDto.CheckBoxSite1 == false) && (checkDto.CheckBoxSite2 == false) && (checkDto.CheckBoxSite3 == false) &&
-                (checkDto.CheckBoxSite4 == false) && (checkDto.CheckBoxSite5 == false) && (checkDto.CheckBoxSite6 == false) &&
-                (checkDto.CheckBoxSite7 == false) && (checkDto.CheckBoxSite8 == false))
+                (checkDto.CheckBoxSite5 == false) && (checkDto.CheckBoxSite6 == false))
                 flag = false;
 
             return flag;
@@ -237,6 +253,126 @@ namespace TenderParserWpf
             File.WriteAllBytes(fileTemplate, Properties.Resources.отчет);
 
             return fileTemplate;
+        }
+
+        private void link_Click(object sender, RoutedEventArgs e)
+        {
+            WordEditView view = new WordEditView();
+            view.Show();
+
+            this.Close();
+        }
+
+        private async void checkBox1_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var words = await _iWordRepositoryByPir.Get();
+                if (words != null)
+                    AddWordHelper(words.Select(x => x.Value).ToList());
+
+                wordList.ItemsSource = WordList;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
+        }
+
+        private async void checkBox1_Unchecked(object sender, RoutedEventArgs e)
+        {
+            var words = await _iWordRepositoryByPir.Get();
+            if (words != null)
+                RemovedWordHelper(words.Select(x => x.Value).ToList());
+
+            wordList.ItemsSource = WordList;
+        }
+
+        private async void checkBox2_Checked(object sender, RoutedEventArgs e)
+        {
+            var words = await _iWordRepositoryBySipoe.Get();
+            if (words != null)
+                AddWordHelper(words.Select(x => x.Value).ToList());
+
+            wordList.ItemsSource = WordList;
+        }
+
+        private async void checkBox2_Unchecked(object sender, RoutedEventArgs e)
+        {
+            var words = await _iWordRepositoryBySipoe.Get();
+            if (words != null)
+                RemovedWordHelper(words.Select(x => x.Value).ToList());
+
+            wordList.ItemsSource = WordList;
+        }
+
+        private async void checkBox3_Checked(object sender, RoutedEventArgs e)
+        {
+            var words = await _iWordRepositoryBySiPoTitee.Get();
+            if (words != null)
+                AddWordHelper(words.Select(x => x.Value).ToList());
+
+            wordList.ItemsSource = WordList;
+        }
+
+        private async void checkBox3_Unchecked(object sender, RoutedEventArgs e)
+        {
+            var words = await _iWordRepositoryBySiPoTitee.Get();
+            if (words != null)
+                RemovedWordHelper(words.Select(x => x.Value).ToList());
+            wordList.ItemsSource = WordList;
+        }
+        private async void checkBox4_Checked(object sender, RoutedEventArgs e)
+        {
+            var words = await _iWordRepositoryByIiId.Get();
+            if (words != null)
+                AddWordHelper(words.Select(x => x.Value).ToList());
+            wordList.ItemsSource = WordList;
+        }
+
+        private async void checkBox4_Unchecked(object sender, RoutedEventArgs e)
+        {
+            var words = await _iWordRepositoryByIiId.Get();
+            if (words != null)
+                RemovedWordHelper(words.Select(x => x.Value).ToList());
+
+            wordList.ItemsSource = WordList;
+        }
+        private async void checkBox5_Checked(object sender, RoutedEventArgs e)
+        {
+            var words = await _iWordRepositoryByGirIGrr.Get();
+            if (words != null)
+                AddWordHelper(words.Select(x => x.Value).ToList());
+
+            wordList.ItemsSource = WordList;
+        }
+
+        private async void checkBox5_Unchecked(object sender, RoutedEventArgs e)
+        {
+            var words = await _iWordRepositoryByGirIGrr.Get();
+            if (words != null)
+                RemovedWordHelper(words.Select(x => x.Value).ToList());
+
+            wordList.ItemsSource = WordList;
+        }
+
+        private void AddWordHelper(List<string> words)
+        {
+            foreach (var word in words)
+            {
+                if (!WordList.Contains(word))
+                    WordList.Add(word);
+            }
+        }
+
+        private void RemovedWordHelper(List<string> words)
+        {
+            foreach (var word in words)
+            {
+                if (WordList.Contains(word))
+                    WordList.Remove(word);
+            }
         }
     }
 }

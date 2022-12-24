@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace TenderParserWpf.Models.Dto
 {
     public class DtoCheckBoxes
     {
         public DtoCheckBoxes(bool? checkBox1, bool? checkBox2, bool? checkBox3, bool? checkBox4, bool? checkBox5,
-                             bool? checkBoxSite1, bool? checkBoxSite2, bool? checkBoxSite3, bool? checkBoxSite4,
-                             bool? checkBoxSite5, bool? checkBoxSite6, bool? checkBoxSite7, bool? checkBoxSite8,
+                             bool? checkBoxSite1, bool? checkBoxSite2, bool? checkBoxSite3,
+                             bool? checkBoxSite5, bool? checkBoxSite6,
                              string text, string path)
         {
             CheckBox1 = checkBox1;
@@ -21,11 +16,8 @@ namespace TenderParserWpf.Models.Dto
             CheckBoxSite1 = checkBoxSite1;
             CheckBoxSite2 = checkBoxSite2;
             CheckBoxSite3 = checkBoxSite3;
-            CheckBoxSite4 = checkBoxSite4;
             CheckBoxSite5 = checkBoxSite5;
             CheckBoxSite6 = checkBoxSite6;
-            CheckBoxSite7 = checkBoxSite7;
-            CheckBoxSite8 = checkBoxSite8;
             SearchWord = text;
             Path = path;
         }
@@ -81,11 +73,6 @@ namespace TenderParserWpf.Models.Dto
         public bool? CheckBoxSite3 { get; set; }
 
         /// <summary>
-        /// чекбокс lukoil.ru
-        /// </summary>
-        public bool? CheckBoxSite4 { get; set; }
-
-        /// <summary>
         /// чекбокс neftisa.ru
         /// </summary>
         public bool? CheckBoxSite5 { get; set; }
@@ -94,16 +81,6 @@ namespace TenderParserWpf.Models.Dto
         /// чекбокс fabrikant.ru
         /// </summary>
         public bool? CheckBoxSite6 { get; set; }
-
-        /// <summary>
-        /// чекбокс etp.spbex.ru
-        /// </summary>
-        public bool? CheckBoxSite7 { get; set; }
-
-        /// <summary>
-        /// чекбокс novatek.ru
-        /// </summary>
-        public bool? CheckBoxSite8 { get; set; }
 
 
     }

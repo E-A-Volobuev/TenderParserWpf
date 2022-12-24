@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TenderParserWpf"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
        Title="Мониторинг внешнего рынка по заданным сайтам и ключевым словам" Height="680" Width="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -22,29 +23,32 @@
                 <TextBlock FontSize="18" Margin="-9,0,9,0">Выберите направления поиска:</TextBlock>
             </GroupBox.Header>
             <StackPanel Orientation="Horizontal" Margin="0,0,-2,0" Height="102">
-                <CheckBox x:Name="checkBox1" IsChecked="False"  Height="29" Width="84"  >
+                <CheckBox x:Name="checkBox1" IsChecked="False" Checked="checkBox1_Checked" Unchecked="checkBox1_Unchecked" Height="29" Width="84"  >
                     <TextBlock FontSize="18" FontWeight="Bold">ПИР</TextBlock>
                 </CheckBox>
-                <CheckBox x:Name="checkBox2" IsChecked="False"  Height="29" >
+                <CheckBox x:Name="checkBox2" IsChecked="False" Checked="checkBox2_Checked" Unchecked="checkBox2_Unchecked" Height="29" >
                     <TextBlock FontSize="18" FontWeight="Bold" Width="93">СИПОЭ</TextBlock>
                 </CheckBox>
-                <CheckBox x:Name="checkBox3" IsChecked="False"  Height="29" >
+                <CheckBox x:Name="checkBox3" IsChecked="False"  Height="29" Checked="checkBox3_Checked" Unchecked="checkBox3_Unchecked" >
                     <TextBlock FontSize="18" FontWeight="Bold" Width="138">СИ по ТИТЭЭ</TextBlock>
                 </CheckBox>
-                <CheckBox x:Name="checkBox4" IsChecked="False"  Height="29" >
+                <CheckBox x:Name="checkBox4" IsChecked="False"  Height="29" Checked="checkBox4_Checked" Unchecked="checkBox4_Unchecked">
                     <TextBlock FontSize="18" FontWeight="Bold" Width="98">И и ИД</TextBlock>
                 </CheckBox>
-                <CheckBox x:Name="checkBox5" IsChecked="False"  Height="29" >
+                <CheckBox x:Name="checkBox5" IsChecked="False"  Height="29" Checked="checkBox5_Checked" Unchecked="checkBox5_Unchecked">
                     <TextBlock FontSize="18" FontWeight="Bold">ГИР и ГРР</TextBlock>
                 </CheckBox>
             </StackPanel>
         </GroupBox>
-        <GroupBox  Grid.ColumnSpan="3" Margin="75,175,98,168" Grid.RowSpan="2">
+        <GroupBox  Grid.ColumnSpan="3" Margin="75,175,98,158" Grid.RowSpan="2">
             <GroupBox.Header>
                 <TextBlock FontSize="18">Укажите ключевые слова:</TextBlock>
             </GroupBox.Header>
-            <ComboBox  x:Name="wordList"  FontSize="17" FontWeight="Bold"  Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" IsEditable="True" IsTextSearchEnabled = "True"  Height="28" Margin="10,0,0,0"/>
+            <ComboBox  x:Name="wordList"  FontSize="17" FontWeight="Bold"  Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" IsEditable="True" IsTextSearchEnabled = "True" Margin="10,10,11,21"/>
         </GroupBox>
+        <TextBlock Grid.Column="1"  Grid.Row="1" Margin="33,34,85,164" >
+                 <Hyperlink Click="link_Click">редактор ключевых слов</Hyperlink>
+        </TextBlock>
         <GroupBox Header="Укажите папку для сохранения отчёта:" Grid.Column="0" Grid.ColumnSpan="3" FontSize="18" Margin="75,72,98,48" Grid.Row="1"/>
         <TextBox x:Name="textBoxSelectFile" Grid.Column="0"  Grid.Row="1"  Grid.ColumnSpan="3" Width="493" TextAlignment="Center"  HorizontalAlignment="Left"  ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="93,104,0,72" >
             <TextBox.RenderTransform>
@@ -80,20 +84,11 @@
                 <CheckBox x:Name="checkBoxSite3" IsChecked="False">
                     <TextBlock FontSize="12" FontWeight="Bold" Width="176">zakupki.gazprom-neft.ru</TextBlock>
                 </CheckBox>
-                <CheckBox x:Name="checkBoxSite4" IsChecked="False">
-                    <TextBlock FontSize="12" FontWeight="Bold" Width="116">lukoil.ru</TextBlock>
-                </CheckBox>
                 <CheckBox x:Name="checkBoxSite5" IsChecked="False">
                     <TextBlock FontSize="12" FontWeight="Bold" Width="116">neftisa.ru</TextBlock>
                 </CheckBox>
                 <CheckBox x:Name="checkBoxSite6" IsChecked="False">
                     <TextBlock FontSize="12" FontWeight="Bold" Width="116">fabrikant.ru</TextBlock>
-                </CheckBox>
-                <CheckBox x:Name="checkBoxSite7" IsChecked="False">
-                    <TextBlock FontSize="12" FontWeight="Bold" Width="116">etp.spbex.ru</TextBlock>
-                </CheckBox>
-                <CheckBox x:Name="checkBoxSite8" IsChecked="False">
-                    <TextBlock FontSize="12" FontWeight="Bold" Width="116">novatek.ru</TextBlock>
                 </CheckBox>
             </StackPanel>
         </Expander>
